@@ -1,25 +1,34 @@
 import logo from "./logo.svg";
 import "./App.css";
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Sidebar from './components/Sidebar';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 function App() {
+  const [issues, setIssues] = useState(null)
+
+  const getIssues = async () => {
+    try {
+      const res = await axios.get('https://api.github.com/repos/facebook/react/issues?page=$1&per_page=20');
+      setIssues(res.data);
+      console.log(res.data);
+    }
+    catch (err) {
+      setIssues("ERROR!");
+      console.log(issues);
+    }
+
+  }
+
+  useEffect(() => {
+    getIssues();
+  }, []);
+
   return (
-    <div className="App">
-      <h1>TYOOO</h1>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <h1>Nguyen Trieu</h1>
-      </header>
+    <div id="wrap">
+      <Header logo={logo} />
     </div>
   );
 }
