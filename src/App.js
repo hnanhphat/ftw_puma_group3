@@ -1,25 +1,65 @@
-import logo from "./logo.svg";
 import "./App.css";
+import PublicNavbar from "./components/PublicNavbar";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Container } from "react-bootstrap";
+import { HashLoader } from "react-spinners";
+import { useEffect, useState } from "react";
+import SearchForm from "./components/SearchForm";
+import IssueList from "./components/IssueList";
 
 function App() {
+  const [loading, setLoading] = useState(false);
+  const [searchInput, setSearchInput] = useState("facebook/react");
+  const [issues, setIssues] = useState([]);
+
+  // this function to take handle search when client change key word => change data with setSearchInput
+  const handleSearch = (event) => {
+    setSearchInput(event.target.value);
+  };
+
+  // When user hit enter, take the value of search form
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // when typing something, expect to see something
+    // alert(searchInput);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const url = `https://api.github.com/repos/facebook/react/issues?page=1&per_page=20`;
+        const res = await fetch(url);
+        const data = await res.json();
+        console.log(data);
+        setIssues(data);
+      } catch (error) {
+        console.log("message:", error);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <h1>Nguyen Trieu</h1>
-      </header>
-    </div>
+    <>
+      <PublicNavbar />
+
+      <Container>
+        <h1 className="text-center">Github Issues</h1>
+        <SearchForm
+          loading={loading}
+          searchInput={searchInput}
+          handleSearch={handleSearch}
+          handleSubmit={handleSubmit}
+        />
+        {loading ? (
+          <HashLoader color="#f86c6b" loading={true} size={100} />
+        ) : (
+          <IssueList itemList={issues} />
+        )}
+      </Container>
+    </>
   );
 }
 
