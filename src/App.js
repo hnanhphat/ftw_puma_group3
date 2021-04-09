@@ -1,25 +1,34 @@
 import logo from "./logo.svg";
 import "./App.css";
+import Header from "./components/Header";
+import IssueList from "./components/IssueList";
+import React, { useState, useEffect } from "react";
 
 function App() {
+  const [issues, setIssues] = useState([]);
+
+  const getIssues = async () => {
+    try {
+      const url = `https://api.github.com/repos/facebook/react/issues?page=1&per_page=20`;
+      const res = await fetch(url);
+      const data = await res.json();
+      console.log(data);
+      setIssues(data);
+    } catch (error) {
+      console.log("message:", error);
+    }
+  };
+
+  useEffect(() => {
+    getIssues();
+  }, []);
+
   return (
-    <div className="App">
-      <h1>TYOOOsss</h1>
-      <header className="App-header">
-        <h1>sdfa</h1>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="wrap">
+      <Header logo={logo} />
+      <div className="issues">
+        <IssueList itemList={issues} />
+      </div>
     </div>
   );
 }
