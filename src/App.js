@@ -1,35 +1,18 @@
-import logo from './logo.svg';
+import logo from './img/logo.png';
+import logo_white from './img/logo-white.png';
 import "./App.css";
 import Header from './components/Header';
-import IssueList from './components/IssueList';
-import React, { useState, useEffect } from 'react'
+import FirstView from './components/FirstView';
+import Footer from './components/Footer';
 
 function App() {
-  const [issues, setIssues] = useState([])
-
-  const getIssues = async () => {
-    try {
-      const url = `https://api.github.com/repos/facebook/react/issues?page=1&per_page=20`;
-      const res = await fetch(url);
-      const data = await res.json();
-      console.log(data);
-      setIssues(data);
-    } catch (error) {
-      console.log("message:", error);
-    }
-  }
-
-  useEffect(() => {
-    getIssues();
-  }, []);
-
   return (
-    <div id="wrap">
-      <Header logo={logo} />
-      <div className="issues">
-        <IssueList itemList={issues} />
-
-      </div>
+    <div id="home">
+      <Header/>
+      <main>
+        <FirstView />
+      </main>
+      <Footer logo={logo} />
     </div>
   );
 }
