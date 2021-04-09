@@ -11,6 +11,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [searchInput, setSearchInput] = useState("facebook/react");
   const [issues, setIssues] = useState([]);
+  const [owner, setOwner] = useState("");
+  const [repo, setRepo] = useState("");
 
   // this function to take handle search when client change key word => change data with setSearchInput
   const handleSearch = (event) => {
@@ -22,13 +24,15 @@ function App() {
     event.preventDefault();
     // when typing something, expect to see something
     // alert(searchInput);
+
+    setOwner(searchInput.split('/')[0])
   };
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const url = `https://api.github.com/repos/facebook/react/issues?page=1&per_page=20`;
+        const url = `https://api.github.com/repos/${owner}/${repo}/issues?page=1&per_page=20`;
         const res = await fetch(url);
         const data = await res.json();
         console.log(data);
@@ -38,8 +42,8 @@ function App() {
       }
       setLoading(false);
     };
-    fetchData();
-  }, []);
+    // fetchData();
+  }, [owner, repo]);
 
   return (
     <>
