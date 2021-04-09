@@ -14,6 +14,9 @@
       top: 40%;
       left: 50%;
       @include tranform_c(translate(-50%, -50%));
+      input {
+        margin: 20px 0;
+      }
     }
   }
 }
