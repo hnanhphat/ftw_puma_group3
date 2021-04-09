@@ -9,7 +9,7 @@ import ReactPaginate from 'react-paginate';
 
 function App() {
   const [issues, setIssues] = useState([])
-  const [currentPage, setCurrentPage] = useState(1)
+  let currentPage = 1
   const [loading, setLoading] = useState("")
 
 
@@ -34,7 +34,7 @@ function App() {
 
   const handlePageChange = async (selectedObject) => {
     setLoading("loading")
-    setCurrentPage((selectedObject.selected + 1))
+    currentPage = (selectedObject.selected + 1)
     console.log('page clicked:', (selectedObject.selected + 1))
     setIssues("")
     await getIssues()
