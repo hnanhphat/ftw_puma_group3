@@ -10,15 +10,17 @@ import ReactPaginate from 'react-paginate';
 function App() {
   const [issues, setIssues] = useState([])
   const [currentPage, setcurrentPage] = useState(1)
+  const [loading, setLoading] = useState("")
 
 
   const getIssues = async () => {
 
 
     try {
-      const url = `https://api.github.com/repos/facebook/react/issues?page=${currentPage}&per_page=5`;
+      const url = `https://api.github.com/repos/facebook/react/issues?page=${(currentPage)}&per_page=5`;
       const res = await fetch(url);
       const data = await res.json();
+      console.log('current page:', (currentPage))
       console.log(data);
       setIssues(data);
     } catch (error) {
@@ -30,16 +32,25 @@ function App() {
     getIssues();
   }, []);
 
-  const handlePageChange = (selectedObject) => {
-    setcurrentPage(selectedObject.selected);
-    getIssues();
+  const handlePageChange = async (selectedObject) => {
+    setLoading("loading")
+    setcurrentPage((selectedObject.selected + 1))
+    console.log('page clicked:', (selectedObject.selected + 1))
+    setIssues("")
+    await getIssues()
+    setLoading("done")
   };
 
   return (
     <div id="wrap">
       <Header logo={logo} />
       <div className="issues">
-        <IssueList itemList={issues} />
+        {/* exchange "loding..." with a spinner in the future */}
+        {loading === "loading" ? <h1>loading...</h1>
+          : ''}
+
+        {issues ? <IssueList itemList={issues} />
+          : ""}
 
         <ReactPaginate
           pageCount={4}
