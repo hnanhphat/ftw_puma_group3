@@ -69,3 +69,14 @@ header {
     border-radius: 50%;
     width: 60px;
     height: 60px; }
+
+
+.pagination {
+  display: flex;
+}
+
+    .page-link {
+  cursor: pointer;
+  margin: 15px;
+}
+
