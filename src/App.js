@@ -1,25 +1,22 @@
-import logo from "./logo.svg";
+import logo from './logo.svg';
 import "./App.css";
 import Header from './components/Header';
-import Footer from './components/Footer';
-import Sidebar from './components/Sidebar';
+import IssueList from './components/IssueList';
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 
 function App() {
-  const [issues, setIssues] = useState(null)
+  const [issues, setIssues] = useState([])
 
   const getIssues = async () => {
     try {
-      const res = await axios.get('https://api.github.com/repos/facebook/react/issues?page=$1&per_page=20');
-      setIssues(res.data);
-      console.log(res.data);
+      const url = `https://api.github.com/repos/facebook/react/issues?page=1&per_page=20`;
+      const res = await fetch(url);
+      const data = await res.json();
+      console.log(data);
+      setIssues(data);
+    } catch (error) {
+      console.log("message:", error);
     }
-    catch (err) {
-      setIssues("ERROR!");
-      console.log(issues);
-    }
-
   }
 
   useEffect(() => {
@@ -29,6 +26,10 @@ function App() {
   return (
     <div id="wrap">
       <Header logo={logo} />
+      <div className="issues">
+        <IssueList itemList={issues} />
+
+      </div>
     </div>
   );
 }

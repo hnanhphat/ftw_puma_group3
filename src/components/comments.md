@@ -1,2 +1,0 @@
-#Dinh notes
-First commit
