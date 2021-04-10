@@ -22,7 +22,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
 
-  const [loading, setLoading] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSearch = (e) => {
     setSearchInput(e.target.value);
@@ -59,6 +59,7 @@ function App() {
             }
           }
         }
+        setLoading(true);
         setIssueTitle(`~${5 * totalPage} results found`);
         return;
       }
@@ -98,11 +99,9 @@ function App() {
           handleSearch={handleSearch}
         />
         <div className="issues">
-          {loading === "loading" ? <h1>loading...</h1>
-            : ''}
+          {loading ? '' : ''}
 
-          {issues ? <ItemList itemList={issues} titleResult={issueTitle} />
-            : ""}
+          {issues ? <ItemList itemList={issues} titleResult={issueTitle} /> : ''}
 
           {totalPage > 1 ? 
             <PaginationBar
