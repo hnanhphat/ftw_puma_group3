@@ -1,4 +1,5 @@
 import React from 'react'
+import Moment from "react-moment";
 
 const ItemList = ({ itemList }) => {
   return (
@@ -9,17 +10,16 @@ const ItemList = ({ itemList }) => {
           <li key={item.id}>
             <div className="info">
               <figure className="info__shape">
-                <img src="https://avatars.githubusercontent.com/u/2440089?v=4" alt="rickhanlonii"/>
-                <figcaption>@rickhanlonii</figcaption>
+                <img src={item.user.avatar_url} alt={item.user.login}/>
+                <figcaption>@{item.user.login}</figcaption>
               </figure>
               <div className="info__txt">
-                <h3 className="heading-tertiary">#21207 Warn when a function whose name starts with a capital letter is passed to useState/setState</h3>
-                <p className="time">Last update: 2 days ago - Comment: 1</p>
-                <p className="des">## Overview Adds a flag to opt-into time-slicing by default per root.## Overview Adds a flag to opt-into time-slicing by default per root.</p>
+                <h3 className="heading-tertiary">#{item.number} {item.title}</h3>
+                <p className="time">Last update: <Moment fromNow>{item.updated_at}</Moment> - Comment: {item.comments}</p>
+                <p className="des">{item.body}</p>
                 <p className="tag">
                   <span>CLA Signed</span>
-                  <span>CLA Signed</span>
-                  <span>CLA Signed</span>
+                  {item.labels.map((item) => <span key={item.id}>{item.name}</span>)}
                 </p>
               </div>
             </div>

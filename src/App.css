@@ -470,6 +470,7 @@ header {
       border-radius: 3px;
       cursor: pointer;
       padding: 60px 60px 60px 90px;
+      min-height: 265px;
       -webkit-transform: skew(-12deg);
       -moz-transform: skew(-12deg);
       -ms-transform: skew(-12deg);
@@ -538,20 +539,21 @@ header {
         #home main .main-content .issues li .info__txt .time {
           color: #999; }
         #home main .main-content .issues li .info__txt .des {
-          margin-bottom: 10px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap; }
-        #home main .main-content .issues li .info__txt .tag span {
-          background: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8));
-          border-radius: 6px;
-          color: #fff;
-          display: inline-block;
-          font-size: 12px;
-          font-weight: bold;
-          padding: 0 8px; }
-          #home main .main-content .issues li .info__txt .tag span:not(:last-child) {
-            margin-right: 5px; }
+        #home main .main-content .issues li .info__txt .tag {
+          margin-top: 10px; }
+          #home main .main-content .issues li .info__txt .tag span {
+            background: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8));
+            border-radius: 6px;
+            color: #fff;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 0 8px; }
+            #home main .main-content .issues li .info__txt .tag span:not(:last-child) {
+              margin-right: 5px; }
       #home main .main-content .issues li:hover .info__shape img {
         filter: blur(3px) brightness(80%);
         -webkit-transform: scale(1);
@@ -566,15 +568,3 @@ header {
         -ms-transform: translate(-50%, -50%);
         -o-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%); }
-
-
-      /* PAGINATION */
-        .pagination {
-          display: flex;
-        }
-
-      .page-link {
-        font-size: 24px;
-        margin: 15px;
-        cursor: pointer;
-      }

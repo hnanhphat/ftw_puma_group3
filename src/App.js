@@ -3,9 +3,9 @@ import "./App.css";
 import Header from './components/Header';
 import FirstView from './components/FirstView';
 import ItemList from './components/ItemList';
+import PaginationBar from './components/PaginationBar';
 import Footer from './components/Footer';
 import { useState, useEffect } from 'react';
-import ReactPaginate from 'react-paginate';
 
 
 function App() {
@@ -15,8 +15,9 @@ function App() {
   const [owner, setOwner] = useState("");
   const [repo, setRepo] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  let currentPage = 1
-  const [loading, setLoading] = useState("")
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const [loading, setLoading] = useState("");
 
   const handleSearch = (e) => {
     setSearchInput(e.target.value);
@@ -38,13 +39,21 @@ function App() {
 
   const getIssues = async () => {
     try {
-      const url = `https://api.github.com/repos/${owner}/${repo}/issues?page=${(currentPage)}&per_page=5`;
+      const url = `https://api.github.com/repos/${owner}/${repo}/issues?page=${currentPage}&per_page=5`;
       const res = await fetch(url);
       const data = await res.json();
       if (res.status === 200) {
-        console.log('current page:', (currentPage))
         setIssues(data);
         setErrorMessage("");
+        if(res.status === 200) {
+          const resLink = res.headers.get("link");
+          if(resLink) {
+            const getTotalPage = resLink.match(/page=(\d+)&per_page=\d+>; rel="last"/);
+            if (getTotalPage) {
+              setTotalPage(parseInt(getTotalPage[1]));
+            }
+          }
+        }
         return;
       }
       setErrorMessage("Can not get data, status is not 200.");
@@ -65,16 +74,7 @@ function App() {
     if (owner || repo) {
       getIssues();
     }
-  }, [owner, repo]);
-
-  const handlePageClick = async (selectedObject) => {
-    setLoading("loading")
-    currentPage = (selectedObject.selected + 1)
-    console.log('page clicked:', (selectedObject.selected + 1))
-    setIssues("")
-    await getIssues()
-    setLoading("done")
-  };
+  }, [owner, repo, currentPage]);
 
   return (
     <div id="home">
@@ -91,37 +91,20 @@ function App() {
           searchInput={searchInput}
           handleSearch={handleSearch}
         />
-        {/* <ItemList itemList={issues} /> */}
         <div className="issues">
-          {/* exchange "loding..." with a spinner in the future */}
           {loading === "loading" ? <h1>loading...</h1>
             : ''}
 
           {issues ? <ItemList itemList={issues} />
             : ""}
 
-          <ReactPaginate
-            previousLabel={'previous'}
-            nextLabel={'next'}
-            breakLabel={'...'}
-            breakClassName={'break-me'}
-            pageCount={20}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={4}
-            onPageChange={handlePageClick}
-            breakClassName={'page-item'}
-            breakLinkClassName={'page-link'}
-            containerClassName={'pagination'}
-            pageClassName={'page-item'}
-            pageLinkClassName={'page-link'}
-            previousClassName={'page-item'}
-            previousLinkClassName={'page-link'}
-            nextClassName={'page-item'}
-            nextLinkClassName={'page-link'}
-            activeClassName={'active'}
-          />
-
-
+          {totalPage > 1 ? 
+            <PaginationBar
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              totalPage={totalPage}
+            />
+          : ''}
         </div>
       </main>
       <Footer logo={logo} />

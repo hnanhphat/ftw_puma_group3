@@ -86,6 +86,7 @@
           border-radius: 3px;
           cursor: pointer;
           padding: 60px 60px 60px 90px;
+          min-height: 265px;
           @include tranform_c(skew(-12deg));
           &:not(:last-child) {
             margin-bottom: 50px;
@@ -132,12 +133,12 @@
                 color: $grey-dark-3;
               }
               .des {
-                margin-bottom: 10px;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
               }
               .tag {
+                margin-top: 10px;
                 span {
                   background: linear-gradient(
                     to right bottom,
