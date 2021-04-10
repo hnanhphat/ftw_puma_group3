@@ -1,6 +1,6 @@
 import React from 'react'
 
-const FirstView = () => {
+const FirstView = (props) => {
   return (
     <div className="first-view">
       <div className="first-view__box">
@@ -8,8 +8,11 @@ const FirstView = () => {
           <span className="heading-primary--main">Github Issues</span>
           <span className="heading-primary--sub">Let's see about github issues</span>
         </h1>
-        <input type="text"/>
-        <button className="btn btn--white">Search</button>
+        <form onSubmit={props.handleSubmit}>
+          {props.error ? <label>This is error alert</label> : ''}
+          <input type="text" value={props.searchInput} onChange={props.handleSearch} placeholder="Github Repository"/>
+          <button type="submit" className="btn btn--white">Search</button>
+        </form>
       </div>
     </div>
   )
