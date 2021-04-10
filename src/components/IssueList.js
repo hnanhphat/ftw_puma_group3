@@ -1,3 +1,4 @@
+import moment from "moment";
 import React from "react";
 import { Media } from "react-bootstrap";
 import Moment from "react-moment";
