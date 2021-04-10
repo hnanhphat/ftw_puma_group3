@@ -9,7 +9,7 @@ const FirstView = () => {
           <span className="heading-primary--sub">Let's see about github issues</span>
         </h1>
         <input type="text"/>
-        <button class="btn btn--white">Search</button>
+        <button className="btn btn--white">Search</button>
       </div>
     </div>
   )

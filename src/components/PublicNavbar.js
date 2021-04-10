@@ -11,7 +11,7 @@ const PublicNavbar = () => {
         <Nav className="mr-auto"></Nav>
         <Nav>
           <a href="#github_repo_link" target="_blank">
-            <i class="fas fa-code-branch fa-2x"></i>
+            <i className="fas fa-code-branch fa-2x"></i>
           </a>
         </Nav>
       </Navbar>

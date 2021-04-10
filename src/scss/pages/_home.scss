@@ -1,21 +1,111 @@
 #home {
-  .first-view {
-    // background: linear-gradient(to right bottom, rgba(126,213,111,0.8), rgba(40,180,133,0.8)),url(../img/hero.jpg);
-    background: linear-gradient(to right bottom, rgba($color: $primary-light, $alpha: 0.8), rgba($color: $primary-dark, $alpha: 0.8)), url('./img/hero.jpg') top/cover no-repeat;
-    -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
-    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
-    width: 100%;
-    height: 95vh;
-    text-align: center;
-    position: relative;
-    &__box {
-      position: absolute;
+  main {
+    background: $grey-light-3;
+    .first-view {
+      background: linear-gradient(
+          to right bottom,
+          rgba($color: $primary-light, $alpha: 0.8),
+          rgba($color: $primary-dark, $alpha: 0.8)
+        ),
+        url("./img/hero.jpg") top/cover no-repeat;
+      -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+      clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
       width: 100%;
-      top: 40%;
-      left: 50%;
-      @include tranform_c(translate(-50%, -50%));
-      input {
-        margin: 20px 0;
+      height: 95vh;
+      text-align: center;
+      position: relative;
+      &__box {
+        position: absolute;
+        width: 100%;
+        top: 40%;
+        left: 50%;
+        @include tranform_c(translate(-50%, -50%));
+        input {
+          border: none;
+          border-radius: 100px;
+          color: $primary;
+          width: 400px;
+          height: 48px;
+          font-size: 18px;
+          padding: 10px 26px;
+          margin: 40px 0 20px;
+          @include transition_c(all 0.5s ease-out);
+          &:focus {
+            width: 460px;
+          }
+        }
+      }
+    }
+    .main-content {
+      .issues {
+        width: 100%;
+        max-width: 880px;
+        padding: 50px 0;
+        margin: 0 auto;
+        li {
+          background: rgba($white, 0.6);
+          box-shadow: 0 30px 60px rgba($black, 0.1);
+          border-radius: 3px;
+          cursor: pointer;
+          padding: 60px 60px 60px 90px;
+          @include tranform_c(skew(-12deg));
+          &:not(:last-child) {
+            margin-bottom: 50px;
+          }
+          .info {
+            @include tranform_c(skewX(12deg));
+            &__shape {
+              border-radius: 50%;
+              float: left;
+              width: 150px;
+              height: 150px;
+              position: relative;
+              overflow: hidden;
+              @include tranform_c(translateX(-30px));
+              @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+                -webkit-clip-path: circle(50% at 50% 50%);
+                clip-path: circle(50% at 50% 50%);
+                -webkit-shape-outside: circle(50% at 50% 50%);
+                shape-outside: circle(50% at 50% 50%);
+                border-radius: 0;
+              }
+              img {
+                backface-visibility: hidden;
+                height: 100%;
+                @include tranform_c(scale(1.4));
+                @include transition_c(all 0.5s ease-out);
+              }
+              figcaption {
+                backface-visibility: hidden;
+                color: $white;
+                font-size: 17px;
+                text-transform: uppercase;
+                text-align: center;
+                opacity: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                @include tranform_c(translate(-50%, 20%));
+                @include transition_c(all 0.5s ease-out);
+              }
+            }
+            &__txt {
+              flex: 1;
+            }
+          }
+          &:hover {
+            .info__shape {
+              img {
+                filter: blur(3px) brightness(80%);
+                @include tranform_c(scale(1));
+              }
+              figcaption {
+                opacity: 1;
+                @include tranform_c(translate(-50%, -50%));
+              }
+            }
+          }
+        }
       }
     }
   }

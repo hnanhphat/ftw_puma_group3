@@ -1,8 +1,8 @@
 import logo from './img/logo.png';
-import logo_white from './img/logo-white.png';
 import "./App.css";
 import Header from './components/Header';
 import FirstView from './components/FirstView';
+import ItemList from './components/ItemList';
 import Footer from './components/Footer';
 
 function App() {
@@ -11,6 +11,7 @@ function App() {
       <Header/>
       <main>
         <FirstView />
+        <ItemList />
       </main>
       <Footer logo={logo} />
     </div>
