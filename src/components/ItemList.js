@@ -1,47 +1,52 @@
-import React from 'react'
+import React from "react";
+import Moment from "react-moment";
+import { Media } from "react-bootstrap";
 
-const ItemList = () => {
+const ItemList = ({ itemList, showDetail }) => {
+  return (
+    <ul className="list-unstyled">
+      {itemList.map((item) => (
+        <Item key={item.id} item={item} showDetail={showDetail} />
+      ))}
+    </ul>
+  );
+};
+
+const Item = ({ item, showDetail }) => {
   return (
     <div className="main-content">
       <h2 className="heading-secondary">1000 Results</h2>
       <ul className="issues">
-        <li>
+        <Media as="li" onClick={() => showDetail(item)}>
           <div className="info">
             <figure className="info__shape">
-              <img src="https://avatars.githubusercontent.com/u/2440089?v=4" alt="rickhanlonii"/>
-              <figcaption>@rickhanlonii</figcaption>
+              <img src={item.user.avatar_url} alt="Generic placeholder" />
+              <figcaption>@{item.user.login}</figcaption>
             </figure>
             <div className="info__txt">
-              <h3 className="heading-tertiary">#21207 Warn when a function whose name starts with a capital letter is passed to useState/setState</h3>
-              <p className="time">Last update: 2 days ago - Comment: 1</p>
-              <p className="des">## Overview Adds a flag to opt-into time-slicing by default per root.## Overview Adds a flag to opt-into time-slicing by default per root.</p>
+              <h3 className="heading-tertiary">
+                <span>#{item.number}</span>
+                <span>{item.title}</span>
+              </h3>
+              <p className="time">
+                Last update <Moment fromNow>{item.updated_at}</Moment>
+              </p>
+              <p className="des">
+                {item.body.lenght <= 99
+                  ? item.body
+                  : item.body.slice(0, 99) + "..."}
+              </p>
               <p className="tag">
-                <span>CLA Signed</span>
-                <span>CLA Signed</span>
-                <span>CLA Signed</span>
+                {item.labels.map((label) => (
+                  <span className="comment-badge">{label.name}</span>
+                ))}
               </p>
             </div>
           </div>
-        </li>
-        <li>
-          <div className="info">
-            <figure className="info__shape">
-              <img src="https://avatars.githubusercontent.com/u/2440089?v=4" alt="rickhanlonii"/>
-              <figcaption>@rickhanlonii</figcaption>
-            </figure>
-            <div className="info__txt">
-              <h3 className="heading-tertiary">#21207 Warn when a function whose name starts with a capital letter is passed to useState/setState</h3>
-              <p className="time">Last update: 2 days ago - Comment: 1</p>
-              <p className="des">## Overview Adds a flag to opt-into time-slicing by default per root.</p>
-              <p className="tag">
-                <span>CLA Signed</span>
-              </p>
-            </div>
-          </div>
-        </li>
+        </Media>
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default ItemList
+export default ItemList;
