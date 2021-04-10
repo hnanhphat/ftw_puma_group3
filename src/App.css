@@ -1,13 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap");
+
 *,
 *::after,
 *::before {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 
 html {
-  font-size: 62.5%; }
+  font-size: 62.5%;
+}
 
 body {
   color: #000;
@@ -18,7 +21,8 @@ body {
   font-weight: normal;
   letter-spacing: 0;
   line-height: 1.4;
-  word-break: break-word; }
+  word-break: break-word;
+}
 
 a {
   color: #000;
@@ -27,14 +31,20 @@ a {
   -moz-transition: all 0.3s ease-out;
   -ms-transition: all 0.3s ease-out;
   -o-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out; }
-  a:link, a:visited {
-    color: currentColor; }
-  a:active, a:hover {
-    opacity: 0.5; }
+  transition: all 0.3s ease-out;
+}
+a:link,
+a:visited {
+  color: currentColor;
+}
+a:active,
+a:hover {
+  opacity: 0.5;
+}
 
 ul {
-  list-style: none; }
+  list-style: none;
+}
 
 button {
   background: none;
@@ -44,28 +54,50 @@ button {
   -moz-transition: all 0.3s ease-out;
   -ms-transition: all 0.3s ease-out;
   -o-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out; }
-  button:focus {
-    outline: none; }
+  transition: all 0.3s ease-out;
+}
+button:focus {
+  outline: none;
+}
 
 img {
   height: auto;
-  vertical-align: middle; }
+  vertical-align: middle;
+}
 
 header {
   display: flex;
   justify-content: space-between;
-  padding: 20px; }
-  header .logo {
-    display: flex;
-    align-items: center; }
-    header .logo img {
-      max-width: 60px; }
-    header .logo span {
-      font-size: 20px;
-      padding-left: 10px; }
-  header .avatar {
-    background: url("./img/avatar.jpg") center/cover no-repeat;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px; }
+  padding: 20px;
+}
+header .logo {
+  display: flex;
+  align-items: center;
+}
+header .logo img {
+  max-width: 60px;
+}
+header .logo span {
+  font-size: 20px;
+  padding-left: 10px;
+}
+header .avatar {
+  background: url("./img/avatar.jpg") center/cover no-repeat;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+}
+
+.list-unstyled {
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+
+.issue-body {
+}
