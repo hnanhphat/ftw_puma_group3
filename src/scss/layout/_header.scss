@@ -10,18 +10,20 @@ header {
   left: 0;
   z-index: 10;
   @include transition_c(all .5s ease-out);
+
   .logo {
     background: url('./img/logo-white.png') center/contain no-repeat;
     width: 78px;
     height: 40px;
   }
+
   .hamburger {
-    background: $white;
-    border-radius: 50%;
     width: 62px;
     height: 62px;
     position: relative;
+    z-index: 20;
     @include transition_c(all .5s ease-out);
+
     input {
       border: none;
       border-radius: 50%;
@@ -30,41 +32,119 @@ header {
       height: 100%;
       opacity: 0;
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
-    span {
-      background: $black;
-      border-radius: 20px;
-      width: 36px;
-      height: 3px;
+
+    label {
       position: absolute;
+      background: $white;
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      span {
+        background: $black;
+        border-radius: 20px;
+        width: 36px;
+        height: 2px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        @include tranform_c(translate(-50%, -50%));
+        @include transition_c(all .5s ease-out);
+  
+        &::before,
+        &::after {
+          content: '';
+          position: absolute;
+          background: $black;
+          border-radius: 10px;
+          width: 36px;
+          height: 2px;
+          @include transition_c(all .5s ease-out);
+        }
+  
+        &::before {
+          top: -9px;
+          left: 0;
+        }
+  
+        &::after {
+          top: 9px;
+          right: 0;
+        }
+      }
+    }
+
+    .bg {
+      position: absolute;
+      background: radial-gradient($primary-light, $primary-dark);
+      border-radius: 50%;
+      height: 52px;
+      width: 52px;
       top: 50%;
       left: 50%;
+      z-index: -1;
       @include tranform_c(translate(-50%, -50%));
-      @include transition_c(all .5s ease-out);
-      &::before,
-      &::after {
-        content: '';
+      @include transition_c(transform .8s cubic-bezier(0.86, 0, 0.07, 1));
+    }
+
+    .nav {
+      position: fixed;
+      width: 0;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      z-index: 1;
+      @include transition_c(all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55));
+
+      ul {
         position: absolute;
-        background: $black;
-        border-radius: 10px;
-        width: 36px;
-        height: 3px;
-        @include transition_c(all .5s ease-out);
-      }
-      &::before {
-        top: -9px;
-        left: 0;
-      }
-      &::after {
-        top: 9px;
-        right: 0;
+        width: 100%;
+        top: 50%;
+        left: 50%;
+        list-style: none;
+        text-align: center;
+        @include tranform_c(translate(-50%, -50%));
+
+        li {
+          margin: 10px;
+
+          a {
+            background: linear-gradient(120deg, transparent 0%, transparent 50%, $white 50%);
+            background-size: 220%;
+            color: $white;
+            display: inline-block;
+            font-size: 30px;
+            font-weight: 300;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            @include transition_c(all .4s ease-out);
+
+            em {
+              display: inline-block;
+              font-style: normal;
+              margin-right: 15px;
+            }
+
+            &:hover {
+              background-position: 100%;
+              color: $primary;
+              opacity: 1;
+              @include tranform_c(translateX(10px));
+            }
+          }
+        }
       }
     }
 
     &:hover {
       opacity: 1;
+
       span {
+
         &::before,
         &::after {
           width: 50%;
@@ -72,15 +152,17 @@ header {
       }
     }
 
-    input:checked ~ {
-      span {
+    input:checked~ {
+      label span {
         @include tranform_c(translate(-50%, -50%) rotate(-45deg));
+
         &::before {
           width: 100%;
           top: 50%;
           left: 50%;
           @include tranform_c(translate(-50%, -50%) rotate(90deg));
         }
+
         &::after {
           width: 100%;
           top: 50%;
@@ -88,20 +170,35 @@ header {
           @include tranform_c(translate(50%, -50%) rotate(90deg));
         }
       }
+
+      .bg {
+        @include tranform_c(scale(120));
+      }
+
+      .nav {
+        opacity: 1;
+        width: 100%;
+      }
     }
   }
+
   &.active {
     background: $white;
     box-shadow: 0 2px 4px rgba($color: $black, $alpha: 0.1);
+
     .logo {
       background-image: url('./img/logo.png');
     }
+
     .hamburger {
-      background: $black;
-      span,
-      span::before,
-      span::after {
-        background: $white;
+
+      label {
+        background: $black;
+        span,
+        span::before,
+        span::after {
+          background: $white;
+        }
       }
     }
   }
