@@ -20,18 +20,22 @@
         top: 40%;
         left: 50%;
         @include tranform_c(translate(-50%, -50%));
-        input {
-          border: none;
-          border-radius: 100px;
-          color: $primary;
-          width: 400px;
-          height: 48px;
-          font-size: 18px;
-          padding: 10px 26px;
-          margin: 40px 0 20px;
-          @include transition_c(all 0.5s ease-out);
-          &:focus {
-            width: 460px;
+        form {
+          margin-top: 40px;
+          position: relative;
+          input {
+            border: none;
+            border-radius: 100px;
+            color: $primary;
+            width: 400px;
+            height: 48px;
+            font-size: 18px;
+            padding: 10px 26px;
+            margin-bottom: 20px;
+            @include transition_c(all 0.5s ease-out);
+            &:focus {
+              width: 460px;
+            }
           }
         }
       }
