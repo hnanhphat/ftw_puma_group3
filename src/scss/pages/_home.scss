@@ -90,7 +90,33 @@
               }
             }
             &__txt {
-              flex: 1;
+              .time {
+                color: $grey-dark-3;
+              }
+              .des {
+                margin-bottom: 10px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+              .tag {
+                span {
+                  background: linear-gradient(
+                    to right bottom,
+                    rgba($color: $primary-light, $alpha: 0.8),
+                    rgba($color: $primary-dark, $alpha: 0.8)
+                  );
+                  border-radius: 6px;
+                  color: $white;
+                  display: inline-block;
+                  font-size: 12px;
+                  font-weight: bold;
+                  padding: 0 8px;
+                  &:not(:last-child) {
+                    margin-right: 5px;
+                  }
+                }
+              }
             }
           }
           &:hover {

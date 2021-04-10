@@ -13,9 +13,13 @@ const ItemList = () => {
             </figure>
             <div className="info__txt">
               <h3 className="heading-tertiary">#21207 Warn when a function whose name starts with a capital letter is passed to useState/setState</h3>
-              <p className="">Last update: 2 days ago Comment: 1</p>
-              <p className="des">## Overview Adds a flag to opt-into time-slicing by default per root.</p>
-              <p className="tag"><span>CLA Signed</span></p>
+              <p className="time">Last update: 2 days ago - Comment: 1</p>
+              <p className="des">## Overview Adds a flag to opt-into time-slicing by default per root.## Overview Adds a flag to opt-into time-slicing by default per root.</p>
+              <p className="tag">
+                <span>CLA Signed</span>
+                <span>CLA Signed</span>
+                <span>CLA Signed</span>
+              </p>
             </div>
           </div>
         </li>
@@ -27,9 +31,11 @@ const ItemList = () => {
             </figure>
             <div className="info__txt">
               <h3 className="heading-tertiary">#21207 Warn when a function whose name starts with a capital letter is passed to useState/setState</h3>
-              <p className="">Last update: 2 days ago Comment: 1</p>
+              <p className="time">Last update: 2 days ago - Comment: 1</p>
               <p className="des">## Overview Adds a flag to opt-into time-slicing by default per root.</p>
-              <p className="tag"><span>CLA Signed</span></p>
+              <p className="tag">
+                <span>CLA Signed</span>
+              </p>
             </div>
           </div>
         </li>
