@@ -141,6 +141,18 @@ input:focus {
     -o-transform: translateY(-1px);
     transform: translateY(-1px); }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px; }
+  .pagination .page-item {
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px; }
+
 footer {
   background: #333;
   text-align: center;
@@ -376,7 +388,8 @@ header {
         background: #fff; }
 
 #home main {
-  background: #f0eeee; }
+  background: #f0eeee;
+  padding-bottom: 50px; }
   #home main .first-view {
     background: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url("./img/hero.jpg") top/cover no-repeat;
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
@@ -462,7 +475,7 @@ header {
   #home main .main-content .issues {
     width: 100%;
     max-width: 880px;
-    padding: 50px 0;
+    padding-top: 50px;
     margin: 0 auto; }
     #home main .main-content .issues li {
       background: rgba(255, 255, 255, 0.6);

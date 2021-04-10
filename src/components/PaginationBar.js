@@ -32,11 +32,13 @@ const PaginationBar = ({ currentPage, setCurrentPage, totalPage }) => {
       <Pagination.Prev disabled={currentPage === 1} onClick={handleClickOnPrev} />
       <Pagination.Item active={currentPage === 1} onClick={() => handleClick(1)}>{1}</Pagination.Item>
 
-      {currentPage - 1 > 1 && <Pagination.Ellipsis />}
+      {currentPage - 2 > 1 && <Pagination.Ellipsis />}
 
+      {currentPage - 1 > 1 && (<Pagination.Item active={currentPage === currentPage - 1} onClick={() => handleClick(currentPage - 1)}>{currentPage - 1}</Pagination.Item>)}
       {currentPage > 1 && currentPage < totalPage && (<Pagination.Item active>{currentPage}</Pagination.Item>)}
+      {currentPage + 1 < totalPage && (<Pagination.Item active={currentPage === currentPage + 1} onClick={() => handleClick(currentPage + 1)}>{currentPage + 1}</Pagination.Item>)}
 
-      {totalPage > currentPage + 1 && <Pagination.Ellipsis />}
+      {totalPage > currentPage + 2 && <Pagination.Ellipsis />}
 
       {totalPage > 1 && (<Pagination.Item active={currentPage === totalPage} onClick={() => handleClick(totalPage)}>{totalPage}</Pagination.Item>)}
       <Pagination.Next disabled={currentPage === totalPage} onClick={handleClickOnNext} />
