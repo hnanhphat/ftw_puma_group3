@@ -21,8 +21,42 @@
         left: 50%;
         @include tranform_c(translate(-50%, -50%));
         form {
-          margin-top: 40px;
+          margin-top: 60px;
           position: relative;
+          label {
+            background: linear-gradient(to right bottom, $pink, $orange);
+            border-radius: 100px;
+            color: $pink;
+            position: absolute;
+            width: 400px;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            padding: 4px 26px;
+            text-align: left;
+            line-height: 28px;
+            opacity: 0;
+            @include tranform_c(translateX(-50%));
+            @include transition_c(all .5s ease-out);
+            &::before {
+              content: '';
+              position: absolute;
+              background: $white;
+              border-radius: 100px;
+              width: calc(100% - 4px);
+              height: calc(100% - 4px);
+              top: 50%;
+              left: 50%;
+              @include tranform_c(translate(-50%, -50%));
+              @include transition_c(all .5s ease-out);
+            }
+            span {
+              position: relative;
+            }
+
+            &.show {
+              opacity: 1;
+            }
+          }
           input {
             border: none;
             border-radius: 100px;

@@ -9,7 +9,7 @@ const FirstView = (props) => {
           <span className="heading-primary--sub">Let's see about github issues</span>
         </h1>
         <form onSubmit={props.handleSubmit}>
-          {props.error ? <label>This is error alert</label> : ''}
+          <label className={props.error ? 'show' : ''}><span>{props.mess ? props.mess : 'Correct.'}</span></label>
           <input type="text" value={props.searchInput} onChange={props.handleSearch} placeholder="Github Repository"/>
           <button type="submit" className="btn btn--white">Search</button>
         </form>

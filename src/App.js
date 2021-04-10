@@ -28,7 +28,7 @@ function App() {
       setOwner(temp[3]);
       setRepo(temp[4]);
     } else {
-      setErrorMessage("Wrong format of search input");
+      setErrorMessage("Wrong format of search input.");
     }
   };
 
@@ -42,7 +42,7 @@ function App() {
         setErrorMessage("");
         return;
       }
-      setErrorMessage("can not get data, status is not 200");
+      setErrorMessage("Can not get data, status is not 200.");
     } catch (error) {
       setErrorMessage(error.message);
     }
@@ -64,11 +64,16 @@ function App() {
 
   return (
     <div id="home">
-      <Header status={headerStatus}/>
+      <Header
+        status={headerStatus}
+        // page="https://github.com/facebook/react/"
+        // readme="https://github.com/facebook/react/blob/master/README.md"
+      />
       <main>
         <FirstView
           handleSubmit={handleSubmit}
           error={errorMessage ? true : false}
+          mess={errorMessage}
           searchInput={searchInput}
           handleSearch={handleSearch}
         />
