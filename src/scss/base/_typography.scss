@@ -1,0 +1,35 @@
+.heading-primary {
+  backface-visibility: hidden;
+  color: $white;
+  text-transform: uppercase;
+  text-align: center;
+  &--main {
+    display: block;
+    font-size: 54px;
+    font-weight: 400;
+    letter-spacing: 32px;
+  }
+  &--sub {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 16px;
+  }
+}
+
+.heading-secondary {
+  background-image: linear-gradient(to right, $primary-light, $primary-dark);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: .2rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.heading-tertiary {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
