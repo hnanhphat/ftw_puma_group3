@@ -10,13 +10,18 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [headerStatus, setHeaderStatus] = useState('');
+  
   const [issues, setIssues] = useState([]);
+  const [issueTitle, setIssueTitle] = useState('Welcom Github Issues')
   const [searchInput, setSearchInput] = useState("facebook/react");
+
   const [owner, setOwner] = useState("");
   const [repo, setRepo] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
+
   const [loading, setLoading] = useState("");
 
   const handleSearch = (e) => {
@@ -54,6 +59,7 @@ function App() {
             }
           }
         }
+        setIssueTitle(`~${5 * totalPage} results found`);
         return;
       }
       setErrorMessage("Can not get data, status is not 200.");
@@ -74,7 +80,7 @@ function App() {
     if (owner || repo) {
       getIssues();
     }
-  }, [owner, repo, currentPage]);
+  }, [owner, repo, currentPage, totalPage]);
 
   return (
     <div id="home">
@@ -95,7 +101,7 @@ function App() {
           {loading === "loading" ? <h1>loading...</h1>
             : ''}
 
-          {issues ? <ItemList itemList={issues} />
+          {issues ? <ItemList itemList={issues} titleResult={issueTitle} />
             : ""}
 
           {totalPage > 1 ? 

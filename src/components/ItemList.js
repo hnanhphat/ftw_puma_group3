@@ -1,10 +1,10 @@
 import React from 'react'
 import Moment from "react-moment";
 
-const ItemList = ({ itemList }) => {
+const ItemList = ({ itemList, titleResult }) => {
   return (
     <div className="main-content">
-      <h2 className="heading-secondary">1000 Results</h2>
+      <h2 className="heading-secondary">{titleResult}</h2>
       <ul className="issues">
         {itemList && itemList.map((item) =>
           <li key={item.id}>
