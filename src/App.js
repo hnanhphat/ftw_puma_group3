@@ -42,33 +42,6 @@ function App() {
     }
   };
 
-  const getIssues = async () => {
-    try {
-      const url = `https://api.github.com/repos/${owner}/${repo}/issues?page=${currentPage}&per_page=5`;
-      const res = await fetch(url);
-      const data = await res.json();
-      if (res.status === 200) {
-        setIssues(data);
-        setErrorMessage("");
-        if(res.status === 200) {
-          const resLink = res.headers.get("link");
-          if(resLink) {
-            const getTotalPage = resLink.match(/page=(\d+)&per_page=\d+>; rel="last"/);
-            if (getTotalPage) {
-              setTotalPage(parseInt(getTotalPage[1]));
-            }
-          }
-        }
-        setLoading(true);
-        setIssueTitle(`~${5 * totalPage} results found`);
-        return;
-      }
-      setErrorMessage("Can not get data, status is not 200.");
-    } catch (error) {
-      setErrorMessage(error.message);
-    }
-  };
-
   useEffect(() => {
     window.onscroll = () => {
       if (window.scrollY > 100) {
@@ -77,6 +50,33 @@ function App() {
         setHeaderStatus('');
       }
     }
+
+    const getIssues = async () => {
+      try {
+        const url = `https://api.github.com/repos/${owner}/${repo}/issues?page=${currentPage}&per_page=5`;
+        const res = await fetch(url);
+        const data = await res.json();
+        if (res.status === 200) {
+          setIssues(data);
+          setErrorMessage("");
+          if(res.status === 200) {
+            const resLink = res.headers.get("link");
+            if(resLink) {
+              const getTotalPage = resLink.match(/page=(\d+)&per_page=\d+>; rel="last"/);
+              if (getTotalPage) {
+                setTotalPage(parseInt(getTotalPage[1]));
+              }
+            }
+          }
+          setLoading(true);
+          setIssueTitle(`~${5 * totalPage} results found`);
+          return;
+        }
+        setErrorMessage("Can not get data, status is not 200.");
+      } catch (error) {
+        setErrorMessage(error.message);
+      }
+    };
 
     if (owner || repo) {
       getIssues();
