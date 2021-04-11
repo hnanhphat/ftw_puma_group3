@@ -1,13 +1,13 @@
 import React from 'react'
 import Moment from "react-moment";
 
-const ItemList = ({ itemList, titleResult }) => {
+const ItemList = ({ itemList, titleResult, showDetail }) => {
   return (
     <div className="main-content">
       <h2 className="heading-secondary">{titleResult}</h2>
       <ul className="issues">
         {itemList && itemList.map((item) =>
-          <li key={item.id}>
+          <li key={item.id} onClick={() => showDetail(item)}>
             <div className="info">
               <figure className="info__shape">
                 <img src={item.user.avatar_url} alt={item.user.login}/>
@@ -18,7 +18,6 @@ const ItemList = ({ itemList, titleResult }) => {
                 <p className="time">Last update: <Moment fromNow>{item.updated_at}</Moment> - Comment: {item.comments}</p>
                 <p className="des">{item.body}</p>
                 <p className="tag">
-                  <span>CLA Signed</span>
                   {item.labels.map((item) => <span key={item.id}>{item.name}</span>)}
                 </p>
               </div>

@@ -3,6 +3,7 @@ import "./App.css";
 import Header from './components/Header';
 import FirstView from './components/FirstView';
 import ItemList from './components/ItemList';
+import ItemModal from './components/ItemModal';
 import Loading from './components/Loading';
 import PaginationBar from './components/PaginationBar';
 import Footer from './components/Footer';
@@ -14,7 +15,7 @@ function App() {
 
   const [issues, setIssues] = useState([]);
   const [issueTitle, setIssueTitle] = useState('Welcom Github Issues')
-  const [searchInput, setSearchInput] = useState("facebook/react");
+  const [searchInput, setSearchInput] = useState('');
 
   const [owner, setOwner] = useState("");
   const [repo, setRepo] = useState("");
@@ -24,6 +25,15 @@ function App() {
   const [totalPage, setTotalPage] = useState(1);
 
   const [loading, setLoading] = useState(true);
+  const [scrollStatus, setScrollStatus] = useState('false');
+
+  const [cmtCurrentPage, setCmtCurrentPage] = useState(1);
+  const [cmtTotalPage, setCmtTotalPage] = useState(1);
+  const [urlFetchComments, setUrlFetchComments] = useState("");
+  const [comments, setComments] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedIssue, setSelectedIssue] = useState(null);
+  const [cmtLoading, setCmtLoading] = useState(false);
 
   const handleSearch = (e) => {
     setSearchInput(e.target.value);
@@ -41,6 +51,26 @@ function App() {
     } else {
       setErrorMessage("Wrong format of search input.");
     }
+  };
+
+  const showDetail = (item) => {
+    setShowModal(true);
+    if (selectedIssue?.number !== item.number) {
+      setComments([]);
+      setCmtCurrentPage(1);
+      setCmtTotalPage(1);
+      setSelectedIssue(item);
+      setUrlFetchComments(
+        `https://api.github.com/repos/${owner}/${repo}/issues/${item.number}/comments?page=1&per_page=5`
+      );
+    }
+  };
+
+  const handleMoreComments = () => {
+    if (cmtCurrentPage >= cmtTotalPage) return;
+    const url = `https://api.github.com/repos/${owner}/${repo}/issues/${selectedIssue.number}/comments?page=${cmtCurrentPage + 1}&per_page=5`;
+    setCmtCurrentPage((num) => num + 1);
+    setUrlFetchComments(url);
   };
 
   useEffect(() => {
@@ -73,6 +103,14 @@ function App() {
           }
           setIssueTitle(`~${5 * totalPage} results found - Page ${currentPage}`);
           setLoading(true);
+          setScrollStatus('true');
+          if(scrollStatus === 'true') {
+            window.scrollTo({
+              top: 600,
+              left: 0,
+              behavior: 'smooth'
+            });
+          }
           return;
         }
         setErrorMessage("Can not get data, status is not 200.");
@@ -81,40 +119,51 @@ function App() {
       }
     };
 
+    const getComments = async () => {
+      if (!urlFetchComments && !showModal) return;
+      setCmtLoading(true);
+      try {
+        const response = await fetch(urlFetchComments);
+        const data = await response.json();
+        if (response.status === 200) {
+          const link = response.headers.get("link");
+          if (link) {
+            const getTotalPage = link.match(
+              /page=(\d+)&per_page=\d+>; rel="last"/
+            );
+            if (getTotalPage) {
+              setCmtTotalPage(parseInt(getTotalPage[1]));
+            }
+          }
+          setComments((c) => [...c, ...data]);
+          setErrorMessage(null);
+        } else {
+          setErrorMessage(`FETCH COMMENTS ERROR: ${data.message}`);
+          setShowModal(false);
+        }
+      } catch (error) {
+        setErrorMessage(`FETCH COMMENTS ERROR: ${error.message}`);
+        setShowModal(false);
+      }
+      setCmtLoading(false);
+    };
+
     getIssues();
-  }, [owner, repo, currentPage, totalPage]);
+    getComments();
+  }, [owner, repo, currentPage, totalPage, scrollStatus, urlFetchComments, showModal]);
 
   return (
-    <div id="home">
-      <Header
-        status={headerStatus}
-        page={searchInput ? `https://github.com/${searchInput}` : '.'}
-        readme={searchInput ? `https://github.com/${searchInput}/blob/master/README.md` : '.'}
-        class={searchInput ? '' : 'hide'}
-      />
+    <div id="home" className={scrollStatus}>
+      <Header status={headerStatus} page={searchInput ? `https://github.com/${searchInput}` : '.'} readme={searchInput ? `https://github.com/${searchInput}/blob/master/README.md` : '.'} class={searchInput ? '' : 'hide'}/>
       <main>
-        <FirstView
-          handleSubmit={handleSubmit}
-          error={errorMessage ? true : false}
-          mess={errorMessage}
-          searchInput={searchInput}
-          handleSearch={handleSearch}
-        />
+        <FirstView handleSubmit={handleSubmit} error={errorMessage ? true : false} mess={errorMessage} searchInput={searchInput} handleSearch={handleSearch} />
         <div className="issues" >
-          {loading ? <ItemList itemList={issues} titleResult={issueTitle} /> : <Loading />}
-
-          {/* {issues ?  : <Loading />} */}
-
-          {totalPage > 1 ? 
-            <PaginationBar
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              totalPage={totalPage}
-            />
-          : ''}
+          {loading ? <ItemList itemList={issues} titleResult={issueTitle} showDetail={showDetail} /> : <Loading />}
+          {loading && totalPage > 1 ? <PaginationBar currentPage={currentPage} setCurrentPage={setCurrentPage} totalPage={totalPage} /> : ''}
         </div>
       </main>
       <Footer logo={logo} />
+      <ItemModal issue={selectedIssue} comments={comments} loadingComments={cmtLoading} showModal={showModal} setShowModal={setShowModal} handleMore={handleMoreComments} disableShowMore={cmtCurrentPage === cmtTotalPage} />
     </div>
   );
 }
