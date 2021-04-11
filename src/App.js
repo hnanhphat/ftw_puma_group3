@@ -74,6 +74,39 @@ function App() {
   };
 
   useEffect(() => {
+    const getComments = async () => {
+      if (!urlFetchComments && !showModal) return;
+      setCmtLoading(true);
+      try {
+        const response = await fetch(urlFetchComments);
+        const data = await response.json();
+        if (response.status === 200) {
+          const link = response.headers.get("link");
+          if (link) {
+            const getTotalPage = link.match(
+              /page=(\d+)&per_page=\d+>; rel="last"/
+            );
+            if (getTotalPage) {
+              setCmtTotalPage(parseInt(getTotalPage[1]));
+            }
+          }
+          setComments((c) => [...c, ...data]);
+          setErrorMessage(null);
+        } else {
+          setErrorMessage(`FETCH COMMENTS ERROR: ${data.message}`);
+          setShowModal(false);
+        }
+      } catch (error) {
+        setErrorMessage(`FETCH COMMENTS ERROR: ${error.message}`);
+        setShowModal(false);
+      }
+      setCmtLoading(false);
+    };
+
+    getComments();
+  }, [urlFetchComments, showModal])
+
+  useEffect(() => {
     window.onscroll = () => {
       if (window.scrollY > 100) {
         setHeaderStatus('active');
@@ -119,38 +152,8 @@ function App() {
       }
     };
 
-    const getComments = async () => {
-      if (!urlFetchComments && !showModal) return;
-      setCmtLoading(true);
-      try {
-        const response = await fetch(urlFetchComments);
-        const data = await response.json();
-        if (response.status === 200) {
-          const link = response.headers.get("link");
-          if (link) {
-            const getTotalPage = link.match(
-              /page=(\d+)&per_page=\d+>; rel="last"/
-            );
-            if (getTotalPage) {
-              setCmtTotalPage(parseInt(getTotalPage[1]));
-            }
-          }
-          setComments((c) => [...c, ...data]);
-          setErrorMessage(null);
-        } else {
-          setErrorMessage(`FETCH COMMENTS ERROR: ${data.message}`);
-          setShowModal(false);
-        }
-      } catch (error) {
-        setErrorMessage(`FETCH COMMENTS ERROR: ${error.message}`);
-        setShowModal(false);
-      }
-      setCmtLoading(false);
-    };
-
     getIssues();
-    getComments();
-  }, [owner, repo, currentPage, totalPage, scrollStatus, urlFetchComments, showModal]);
+  }, [owner, repo, currentPage, totalPage, scrollStatus]);
 
   return (
     <div id="home" className={scrollStatus}>
