@@ -122,6 +122,9 @@ header {
             text-transform: uppercase;
             padding: 10px 20px;
             @include transition_c(all .4s ease-out);
+            &.hide {
+              pointer-events: none;
+            }
 
             em {
               display: inline-block;

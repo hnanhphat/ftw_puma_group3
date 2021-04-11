@@ -6,14 +6,6 @@ const PaginationBar = ({ currentPage, setCurrentPage, totalPage }) => {
     setCurrentPage(parseInt(page));
   };
 
-  const handleClickOnFirst = () => {
-    setCurrentPage(1);
-  };
-
-  const handleClickOnLast = () => {
-    setCurrentPage(totalPage);
-  };
-
   const handleClickOnNext = () => {
     if (currentPage < totalPage) {
       setCurrentPage((num) => num + 1);
@@ -28,7 +20,6 @@ const PaginationBar = ({ currentPage, setCurrentPage, totalPage }) => {
 
   return (
     <Pagination>
-      <Pagination.First disabled={currentPage === 1} onClick={handleClickOnFirst} />
       <Pagination.Prev disabled={currentPage === 1} onClick={handleClickOnPrev} />
       <Pagination.Item active={currentPage === 1} onClick={() => handleClick(1)}>{1}</Pagination.Item>
 
@@ -42,7 +33,6 @@ const PaginationBar = ({ currentPage, setCurrentPage, totalPage }) => {
 
       {totalPage > 1 && (<Pagination.Item active={currentPage === totalPage} onClick={() => handleClick(totalPage)}>{totalPage}</Pagination.Item>)}
       <Pagination.Next disabled={currentPage === totalPage} onClick={handleClickOnNext} />
-      <Pagination.Last disabled={currentPage === totalPage} onClick={handleClickOnLast} />
     </Pagination>
   );
 };

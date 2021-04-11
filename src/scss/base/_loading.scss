@@ -1,0 +1,73 @@
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 115px;
+    height: 115px;
+    padding: 3px;
+    position: absolute;
+
+    &--01 {
+      animation: configure-clockwise 3s ease-in-out 0s infinite alternate;
+      border: 4px solid $primary;
+    }
+
+    &--02 {
+      animation: configure-xclockwise 3s ease-in-out 0s infinite alternate;
+      border: 4px solid $pink;
+      @include tranform_c(rotate(45deg));
+    }
+  }
+}
+
+@keyframes configure-clockwise {
+  0% {
+    @include tranform_c(rotate(0));
+  }
+
+  25% {
+    @include tranform_c(rotate(90deg));
+  }
+
+  50% {
+    @include tranform_c(rotate(180deg));
+  }
+
+  75% {
+    @include tranform_c(rotate(270deg));
+  }
+
+  100% {
+    @include tranform_c(rotate(360deg));
+  }
+}
+
+@keyframes configure-xclockwise {
+  0% {
+    @include tranform_c(rotate(45deg));
+  }
+
+  25% {
+    @include tranform_c(rotate(-45deg));
+  }
+
+  50% {
+    @include tranform_c(rotate(-135deg));
+  }
+
+  75% {
+    @include tranform_c(rotate(-225deg));
+  }
+
+  100% {
+    @include tranform_c(rotate(-315deg));
+  }
+}

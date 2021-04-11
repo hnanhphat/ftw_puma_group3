@@ -2,7 +2,7 @@ import React from 'react'
 
 const FirstView = (props) => {
   return (
-    <div className="first-view">
+    <div ref={props.id} className="first-view">
       <div className="first-view__box">
         <h1 className="heading-primary">
           <span className="heading-primary--main">Github Issues</span>
