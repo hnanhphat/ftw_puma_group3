@@ -178,7 +178,7 @@ input:focus {
   text-transform: uppercase; }
 
 .btn {
-  background-color: #fff;
+  background: #fff;
   border: none;
   border-radius: 10rem;
   color: #777;
@@ -197,7 +197,7 @@ input:focus {
   .btn::after {
     content: "";
     position: absolute;
-    background-color: #fff;
+    background: #fff;
     border-radius: 10rem;
     width: 100%;
     height: 100%;
@@ -209,6 +209,12 @@ input:focus {
     -ms-transition: all 0.4s ease-out;
     -o-transition: all 0.4s ease-out;
     transition: all 0.4s ease-out; }
+  .btn--green {
+    background: #55c57a;
+    color: #fff;
+    margin: 50px auto 30px; }
+    .btn--green::after {
+      background: #55c57a; }
   .btn:hover {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     -webkit-transform: translateY(-3px);
@@ -327,6 +333,113 @@ input:focus {
     .pagination .page-item:last-child .page-link:hover::after {
       border-color: #fff;
       left: calc(50% + 2px); }
+
+.modal-backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1040; }
+
+.modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2000; }
+  .modal .modal-dialog {
+    background: #fff;
+    border-radius: 10px;
+    width: calc(100% - 30px);
+    max-width: 800px;
+    height: calc(100% - 60px);
+    padding: 30px;
+    margin: 0 auto;
+    position: relative;
+    top: 30px;
+    overflow: auto; }
+    .modal .modal-dialog .modal-header .modal-title {
+      background-image: linear-gradient(to right, #7ed56f, #28b485);
+      border-bottom: 1px solid #333;
+      -webkit-background-clip: text;
+      color: transparent;
+      font-size: 20px;
+      font-weight: 700;
+      padding-right: 50px;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      text-transform: uppercase; }
+    .modal .modal-dialog .modal-header .close {
+      color: #55c57a;
+      display: inline-block;
+      font-size: 40px;
+      text-decoration: none;
+      line-height: 24px;
+      position: absolute;
+      top: 36px;
+      right: 30px;
+      transition: all 0.2s;
+      -webkit-transition: all 0.5s ease-out;
+      -moz-transition: all 0.5s ease-out;
+      -ms-transition: all 0.5s ease-out;
+      -o-transition: all 0.5s ease-out;
+      transition: all 0.5s ease-out; }
+      .modal .modal-dialog .modal-header .close:hover {
+        color: #ff0040; }
+    .modal .modal-dialog .modal-body {
+      overflow: hidden; }
+      .modal .modal-dialog .modal-body hr {
+        background: #333;
+        border: none;
+        height: 1px; }
+      .modal .modal-dialog .modal-body p {
+        margin-bottom: 10px; }
+        .modal .modal-dialog .modal-body p code {
+          color: #55c57a; }
+      .modal .modal-dialog .modal-body pre {
+        background: #f4f2f2;
+        border: 1px solid #777;
+        border-radius: 6px;
+        font-size: 12px;
+        padding: 10px 20px;
+        margin-bottom: 10px;
+        overflow: auto; }
+      .modal .modal-dialog .modal-body h2 {
+        background-image: linear-gradient(to right, #7ed56f, #28b485);
+        -webkit-background-clip: text;
+        color: transparent;
+        font-size: 18px;
+        font-weight: 700;
+        text-transform: uppercase; }
+      .modal .modal-dialog .modal-body img {
+        display: block;
+        width: 100%;
+        margin: 0 auto; }
+      .modal .modal-dialog .modal-body .cmt {
+        background-image: linear-gradient(to right, #7ed56f, #28b485);
+        border-top: 1px solid #333;
+        -webkit-background-clip: text;
+        color: transparent;
+        font-size: 20px;
+        font-weight: 700;
+        padding: 10px 0;
+        text-transform: uppercase; }
+      .modal .modal-dialog .modal-body .list-cmts li {
+        display: flex;
+        align-items: flex-start; }
+        .modal .modal-dialog .modal-body .list-cmts li:not(:last-child) {
+          margin-bottom: 30px; }
+        .modal .modal-dialog .modal-body .list-cmts li img {
+          width: 128px;
+          margin-right: 15px; }
+        .modal .modal-dialog .modal-body .list-cmts li .media-body {
+          flex: 1; }
+          .modal .modal-dialog .modal-body .list-cmts li .media-body .time {
+            color: #999;
+            font-size: 14px; }
 
 footer {
   background: #333;
