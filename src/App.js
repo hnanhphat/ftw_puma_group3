@@ -3,6 +3,7 @@ import "./App.css";
 import Header from './components/Header';
 import FirstView from './components/FirstView';
 import ItemList from './components/ItemList';
+import Loading from './components/Loading';
 import PaginationBar from './components/PaginationBar';
 import Footer from './components/Footer';
 import { useState, useEffect } from 'react';
@@ -10,7 +11,7 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [headerStatus, setHeaderStatus] = useState('');
-  
+
   const [issues, setIssues] = useState([]);
   const [issueTitle, setIssueTitle] = useState('Welcom Github Issues')
   const [searchInput, setSearchInput] = useState("facebook/react");
@@ -22,7 +23,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleSearch = (e) => {
     setSearchInput(e.target.value);
@@ -52,6 +53,8 @@ function App() {
     }
 
     const getIssues = async () => {
+      if (!owner || !repo) return;
+      setLoading(false);
       try {
         const url = `https://api.github.com/repos/${owner}/${repo}/issues?page=${currentPage}&per_page=5`;
         const res = await fetch(url);
@@ -68,8 +71,8 @@ function App() {
               }
             }
           }
+          setIssueTitle(`~${5 * totalPage} results found - Page ${currentPage}`);
           setLoading(true);
-          setIssueTitle(`~${5 * totalPage} results found`);
           return;
         }
         setErrorMessage("Can not get data, status is not 200.");
@@ -78,17 +81,16 @@ function App() {
       }
     };
 
-    if (owner || repo) {
-      getIssues();
-    }
+    getIssues();
   }, [owner, repo, currentPage, totalPage]);
 
   return (
     <div id="home">
       <Header
         status={headerStatus}
-      // page="https://github.com/facebook/react/"
-      // readme="https://github.com/facebook/react/blob/master/README.md"
+        page={searchInput ? `https://github.com/${searchInput}` : '.'}
+        readme={searchInput ? `https://github.com/${searchInput}/blob/master/README.md` : '.'}
+        class={searchInput ? '' : 'hide'}
       />
       <main>
         <FirstView
@@ -98,10 +100,10 @@ function App() {
           searchInput={searchInput}
           handleSearch={handleSearch}
         />
-        <div className="issues">
-          {loading ? '' : ''}
+        <div className="issues" >
+          {loading ? <ItemList itemList={issues} titleResult={issueTitle} /> : <Loading />}
 
-          {issues ? <ItemList itemList={issues} titleResult={issueTitle} /> : ''}
+          {/* {issues ?  : <Loading />} */}
 
           {totalPage > 1 ? 
             <PaginationBar
