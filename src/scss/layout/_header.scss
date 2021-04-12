@@ -98,6 +98,7 @@ header {
       left: 0;
       opacity: 0;
       z-index: 1;
+      pointer-events: none;
       @include transition_c(all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55));
 
       ul {
@@ -180,6 +181,7 @@ header {
 
       .nav {
         opacity: 1;
+        pointer-events: auto;
         width: 100%;
       }
     }

@@ -49,6 +49,14 @@
       pointer-events: none;
     }
 
+    &.active .page-link {
+      color: $pink;
+    }
+
+    &.disabled {
+      visibility: hidden;
+    }
+
     &:first-child .page-link,
     &:last-child .page-link {
       font-size: 0;

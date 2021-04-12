@@ -14,7 +14,7 @@ function App() {
   const [headerStatus, setHeaderStatus] = useState('');
 
   const [issues, setIssues] = useState([]);
-  const [issueTitle, setIssueTitle] = useState('Welcom Github Issues')
+  const [issueTitle, setIssueTitle] = useState('')
   const [searchInput, setSearchInput] = useState('');
 
   const [owner, setOwner] = useState("");

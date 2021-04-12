@@ -296,6 +296,10 @@ input:focus {
           transform: translate(-50%, -50%) scale(1); }
     .pagination .page-item.disabled, .pagination .page-item.active {
       pointer-events: none; }
+    .pagination .page-item.active .page-link {
+      color: #ff0040; }
+    .pagination .page-item.disabled {
+      visibility: hidden; }
     .pagination .page-item:first-child .page-link,
     .pagination .page-item:last-child .page-link {
       font-size: 0; }
@@ -580,6 +584,7 @@ header {
       left: 0;
       opacity: 0;
       z-index: 1;
+      pointer-events: none;
       -webkit-transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
       -moz-transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
       -ms-transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -664,6 +669,7 @@ header {
       transform: scale(120); }
     header .hamburger input:checked ~ .nav {
       opacity: 1;
+      pointer-events: auto;
       width: 100%; }
   header.active {
     background: #fff;
