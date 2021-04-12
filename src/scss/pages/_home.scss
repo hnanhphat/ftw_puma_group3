@@ -71,6 +71,9 @@
             &:focus {
               width: 460px;
             }
+            &::placeholder {
+              opacity: 0.3;
+            }
           }
         }
       }

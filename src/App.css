@@ -768,6 +768,8 @@ header {
           transition: all 0.5s ease-out; }
           #home main .first-view__box form input:focus {
             width: 460px; }
+          #home main .first-view__box form input::placeholder {
+            opacity: 0.3; }
   #home main .main-content .issues {
     width: 100%;
     max-width: 880px;
