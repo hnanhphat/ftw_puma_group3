@@ -157,7 +157,7 @@ function App() {
 
   return (
     <div id="home" className={scrollStatus}>
-      <Header status={headerStatus} page={searchInput ? `https://github.com/${searchInput}` : '.'} readme={searchInput ? `https://github.com/${searchInput}/blob/master/README.md` : '.'} class={searchInput ? '' : 'hide'}/>
+      <Header status={headerStatus} page={searchInput && !searchInput.includes('https://github.com/') ? `https://github.com/${searchInput}` : searchInput} readme={searchInput && !searchInput.includes('https://github.com/') ? `https://github.com/${searchInput}/blob/master/README.md` : `${searchInput}/blob/master/README.md`} class={searchInput ? '' : 'hide'}/>
       <main>
         <FirstView handleSubmit={handleSubmit} error={errorMessage ? true : false} mess={errorMessage} searchInput={searchInput} handleSearch={handleSearch} />
         <div className="issues" >
